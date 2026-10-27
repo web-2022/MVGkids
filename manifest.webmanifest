@@ -1,0 +1,15 @@
+{
+  "name": "MVG kids",
+  "short_name": "MVG kids",
+  "description": "Juegos educativos para niños",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFF8EC",
+  "theme_color": "#6C4CF5",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

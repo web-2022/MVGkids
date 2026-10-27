@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#6C4CF5"/>
+  <circle cx="400" cy="112" r="56" fill="#FFD23F"/>
+  <circle cx="104" cy="420" r="40" fill="#3BCEAC"/>
+  <text x="256" y="318" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="900" font-size="190" fill="#FFFFFF">MVG</text>
+  <text x="256" y="400" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="900" font-size="80" fill="#FFD23F">kids</text>
+</svg>

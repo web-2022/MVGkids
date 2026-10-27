@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MVG kids</title>
+  <meta name="description" content="Juegos educativos para niños: números, letras, memoria y más.">
+  <meta name="theme-color" content="#6C4CF5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MVG kids">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFF8EC;
+      --ink: #2B2250;
+      --muted: #6B6390;
+      --brand: #6C4CF5;
+      --card: #FFFFFF;
+      --shadow: 0 6px 0 rgba(43, 34, 80, .12);
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Baloo 2", "Comic Sans MS", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    /* Fondo con formas flotantes */
+    .bg-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .bg-shapes span {
+      position: absolute; border-radius: 50%; opacity: .35;
+      animation: float 14s ease-in-out infinite;
+    }
+    .bg-shapes span:nth-child(1) { width: 180px; height: 180px; background: #FFD23F; top: -40px; left: -50px; }
+    .bg-shapes span:nth-child(2) { width: 120px; height: 120px; background: #3BCEAC; top: 30%; right: -40px; animation-delay: -4s; }
+    .bg-shapes span:nth-child(3) { width: 220px; height: 220px; background: #FF6B9A; bottom: -80px; left: 20%; animation-delay: -8s; }
+    .bg-shapes span:nth-child(4) { width: 90px; height: 90px; background: #6C4CF5; top: 55%; left: 6%; animation-delay: -2s; }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0); }
+      50% { transform: translate(20px, -25px) rotate(10deg); }
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; }
+
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.8rem; text-decoration: none; color: var(--ink); }
+    .logo img { width: 52px; height: 52px; }
+    .logo b { color: var(--brand); }
+    .sound-btn {
+      border: 0; background: var(--card); box-shadow: var(--shadow);
+      width: 56px; height: 56px; border-radius: 50%; font-size: 1.6rem; cursor: pointer;
+    }
+
+    .hero { text-align: center; margin: 28px 0 24px; }
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; margin: 0 0 8px; }
+    .hero p { font-size: clamp(1.1rem, 3vw, 1.4rem); color: var(--muted); margin: 0; }
+    .wave { display: inline-block; animation: wave 2s ease-in-out infinite; transform-origin: 70% 70%; }
+    @keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(16deg); } 20%, 40% { transform: rotate(-8deg); } }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+      gap: 18px;
+    }
+    .game {
+      position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
+      background: var(--card); border-radius: var(--radius); padding: 22px 16px 20px;
+      text-decoration: none; color: var(--ink); box-shadow: var(--shadow);
+      border: 4px solid var(--c);
+      transition: transform .15s ease, box-shadow .15s ease;
+      cursor: pointer; font: inherit;
+    }
+    .game:hover { transform: translateY(-4px) rotate(-1deg); }
+    .game:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(43, 34, 80, .12); }
+    .game .icon {
+      width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 3.2rem; background: var(--c-soft); margin-bottom: 10px;
+    }
+    .game h2 { font-size: 1.5rem; margin: 0; line-height: 1.1; }
+    .game p { margin: 4px 0 0; color: var(--muted); font-size: 1.05rem; line-height: 1.2; }
+    .age {
+      position: absolute; top: 12px; right: 12px; font-size: .85rem; font-weight: 700;
+      background: var(--c-soft); color: var(--ink); border-radius: 999px; padding: 2px 10px;
+    }
+    .soon {
+      position: absolute; top: 12px; left: 12px; font-size: .8rem; font-weight: 700;
+      background: #EDEAF7; color: var(--muted); border-radius: 999px; padding: 2px 10px;
+    }
+
+    /* Aviso "próximamente" */
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%);
+      background: var(--ink); color: #fff; padding: 14px 22px; border-radius: 999px;
+      font-size: 1.15rem; font-weight: 700; z-index: 10; transition: transform .3s ease;
+      max-width: calc(100% - 32px); text-align: center;
+    }
+    .toast.show { transform: translate(-50%, 0); }
+
+    footer { text-align: center; color: var(--muted); margin-top: 36px; font-size: 1rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-shapes span, .wave { animation: none; }
+      .game { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-shapes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+  <div class="wrap">
+    <header>
+      <a class="logo" href="./"><img src="icon.svg" alt="">MVG <b>kids</b></a>
+      <button class="sound-btn" id="soundBtn" aria-label="Activar o desactivar sonido">🔊</button>
+    </header>
+
+    <section class="hero">
+      <h1>¡Hola! <span class="wave">👋</span></h1>
+      <p>¿A qué quieres jugar hoy?</p>
+    </section>
+
+    <main class="grid" id="games"></main>
+
+    <footer>Hecho con cariño · MVG kids</footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Lista de juegos. Para activar uno: crea su carpeta en /juegos y cambia "listo" a true.
+    const JUEGOS = [
+      { id: 'numeros',  nombre: 'Números',          desc: 'Cuenta, suma y resta',      icono: '🔢', color: '#6C4CF5', suave: '#E9E3FF', edad: '4+', listo: false },
+      { id: 'letras',   nombre: 'Letras',           desc: 'Aprende el abecedario',     icono: '🔤', color: '#FF6B9A', suave: '#FFE3EC', edad: '4+', listo: false },
+      { id: 'memoria',  nombre: 'Memoria',          desc: 'Encuentra las parejas',     icono: '🧠', color: '#3BCEAC', suave: '#DDF7F0', edad: '3+', listo: false },
+      { id: 'colores',  nombre: 'Colores y formas', desc: 'Ordena y combina',          icono: '🎨', color: '#FFB627', suave: '#FFF1D2', edad: '3+', listo: false },
+      { id: 'puzzle',   nombre: 'Rompecabezas',     desc: 'Arma la imagen',            icono: '🧩', color: '#2EA7E0', suave: '#DCF1FB', edad: '5+', listo: false },
+      { id: 'ajedrez',  nombre: 'Mini ajedrez',     desc: 'Conoce las piezas',         icono: '♟️', color: '#8A5A44', suave: '#F1E4DC', edad: '6+', listo: false },
+    ];
+
+    const grid = document.getElementById('games');
+    const toast = document.getElementById('toast');
+    const soundBtn = document.getElementById('soundBtn');
+    let sonido = true;
+    try { sonido = localStorage.getItem('mvg-sonido') !== 'off'; } catch (e) {}
+    soundBtn.textContent = sonido ? '🔊' : '🔇';
+
+    // Sonido "pop" sencillo, sin archivos de audio
+    let ctx;
+    function pop(freq = 520) {
+      if (!sonido) return;
+      try {
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(freq, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(freq * 1.8, ctx.currentTime + 0.12);
+        g.gain.setValueAtTime(0.25, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+        o.connect(g).connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + 0.2);
+      } catch (e) {}
+    }
+
+    function mostrarAviso(texto) {
+      toast.textContent = texto;
+      toast.classList.add('show');
+      clearTimeout(mostrarAviso.t);
+      mostrarAviso.t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    JUEGOS.forEach((j, i) => {
+      const el = document.createElement(j.listo ? 'a' : 'button');
+      el.className = 'game';
+      el.style.setProperty('--c', j.color);
+      el.style.setProperty('--c-soft', j.suave);
+      if (j.listo) el.href = `juegos/${j.id}/`;
+      el.innerHTML = `
+        ${j.listo ? '' : '<span class="soon">Pronto</span>'}
+        <span class="age">${j.edad}</span>
+        <span class="icon" aria-hidden="true">${j.icono}</span>
+        <h2>${j.nombre}</h2>
+        <p>${j.desc}</p>`;
+      el.addEventListener('click', (ev) => {
+        pop(420 + i * 60);
+        if (!j.listo) { ev.preventDefault(); mostrarAviso(`¡${j.nombre} llega muy pronto! 🚀`); }
+      });
+      grid.appendChild(el);
+    });
+
+    soundBtn.addEventListener('click', () => {
+      sonido = !sonido;
+      soundBtn.textContent = sonido ? '🔊' : '🔇';
+      try { localStorage.setItem('mvg-sonido', sonido ? 'on' : 'off'); } catch (e) {}
+      pop();
+    });
+
+    // App instalable / funciona sin internet
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
