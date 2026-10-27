@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="MVG Learning" />
-    <title>MVG Learning | Elige tu grado</title>
+    <title>MVG | Niveles y grados</title>
 
     <!-- PWA -->
     <meta name="theme-color" content="#FFF8EC" />
@@ -291,13 +291,6 @@
             margin-top: 0;
         }
 
-        .level-title::after {
-            content: "";
-            flex: 1;
-            height: 4px;
-            border-radius: 4px;
-            background: var(--c-soft);
-        }
 
         .card {
             --c: var(--primaria);
@@ -383,29 +376,6 @@
             background: var(--c-soft);
         }
 
-        .card-share {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            z-index: 2;
-            width: 40px;
-            height: 40px;
-            display: grid;
-            place-items: center;
-            border: 0;
-            border-radius: 50%;
-            font-size: 17px;
-            background: transparent;
-            cursor: pointer;
-            opacity: 0.75;
-            transition: background 0.15s ease, opacity 0.15s ease;
-        }
-
-        .card-share:hover {
-            opacity: 1;
-            background: var(--c-soft);
-        }
-
         /* =====================================
            PIE DE PÁGINA Y AVISO
         ===================================== */
@@ -444,6 +414,211 @@
             opacity: 1;
             visibility: visible;
             transform: translate(-50%, 0);
+        }
+
+        /* =====================================
+           CONTENIDO DEL MENÚ ORIGINAL
+        ===================================== */
+        .brand-label {
+            display: inline-block;
+            margin-bottom: 6px;
+            padding: 3px 12px;
+            border-radius: 999px;
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.2px;
+            background: linear-gradient(90deg, #FF6AA9, #8B5CF6);
+        }
+
+        /* Desfile de amiguitos + compartir */
+        .friends {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin: 0 0 18px;
+            padding: 8px 10px 8px 16px;
+            border-radius: 24px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .character-parade {
+            display: flex;
+            align-items: flex-end;
+            gap: clamp(6px, 1.6vw, 16px);
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .character {
+            line-height: 1;
+            font-size: clamp(28px, 3.4vw, 40px);
+            user-select: none;
+            animation: friendBounce 2.8s ease-in-out infinite;
+        }
+
+        .character.main {
+            font-size: clamp(38px, 4.6vw, 54px);
+        }
+
+        .character:nth-child(2n) { animation-delay: -0.7s; }
+        .character:nth-child(3n) { animation-delay: -1.4s; }
+
+        @keyframes friendBounce {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+
+        .share-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .share-box strong {
+            font-family: "Baloo 2", sans-serif;
+            font-size: 18px;
+            color: #145A71;
+            white-space: nowrap;
+        }
+
+        .share-app-btn {
+            min-height: 48px;
+            padding: 8px 18px;
+            border: 0;
+            border-radius: 16px;
+            color: var(--white);
+            font-size: 17px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: linear-gradient(180deg, #9F7CFF, #7355E9);
+            box-shadow: 0 5px 0 #5036B7;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .share-app-btn:hover { transform: translateY(-2px); }
+        .share-app-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #5036B7; }
+
+        /* Título de la sección */
+        .section-head {
+            text-align: center;
+            margin: 0 0 12px;
+        }
+
+        .section-head h2 {
+            margin: 0;
+            font-family: "Baloo 2", sans-serif;
+            font-size: clamp(24px, 3.4vw, 32px);
+            line-height: 1.05;
+        }
+
+        .section-head p {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .level-title small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-family: "Nunito", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        /* Etiqueta y botones de la tarjeta */
+        .card-stage {
+            margin-top: 8px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: var(--c);
+        }
+
+        .card-footer {
+            align-self: stretch;
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .course-open {
+            flex: 1;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 900;
+            white-space: nowrap;
+            background: var(--c);
+            box-shadow: 0 4px 0 rgba(43, 34, 80, 0.22);
+        }
+
+        .card-share {
+            position: relative;
+            z-index: 2;
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 14px;
+            font-size: 18px;
+            background: var(--c-soft);
+            box-shadow: 0 4px 0 rgba(43, 34, 80, 0.12);
+            cursor: pointer;
+        }
+
+        .card-share:hover {
+            filter: brightness(0.97);
+        }
+
+        .card {
+            container-type: inline-size;
+        }
+
+        .card .long { display: none; }
+        .card .short { display: inline; }
+
+        @container (min-width: 210px) {
+            .card .long { display: inline; }
+            .card .short { display: none; }
+        }
+
+        .share-app-btn .short { display: none; }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 28px;
+            text-align: center;
+            border: 3px dashed #D9CFEA;
+            border-radius: 22px;
+            color: var(--muted);
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        @media (max-width: 900px) {
+            .character:nth-child(n+8) {
+                display: none;
+            }
+        }
+
+        .footer p {
+            margin: 2px 0 0;
         }
 
         /* =====================================
@@ -494,8 +669,38 @@
                 display: none;
             }
 
-            .card-tag {
+            .card-tag,
+            .card-stage,
+            .share-box strong,
+            .long,
+            .level-title small,
+            .section-head p {
                 display: none;
+            }
+
+            .share-app-btn .long { display: none; }
+
+            .friends {
+                padding: 8px 8px 8px 12px;
+            }
+
+            .character:nth-child(n+6) {
+                display: none;
+            }
+
+            .share-app-btn {
+                padding: 8px 12px;
+                font-size: 15px;
+            }
+
+            .card-footer {
+                gap: 6px;
+                margin-top: 10px;
+            }
+
+            .card-share {
+                width: 40px;
+                flex-basis: 40px;
             }
         }
 
@@ -523,14 +728,38 @@
 
             <div class="top-actions">
                 <button class="round-btn" id="soundBtn" type="button" aria-label="Activar o desactivar sonido">🔊</button>
-                <button class="round-btn" id="shareAppBtn" type="button" aria-label="Compartir la app">📤</button>
             </div>
         </header>
 
         <!-- Saludo -->
         <section class="hero">
-            <h1>¡Hola! <span class="wave" aria-hidden="true">👋</span></h1>
-            <p>¿Qué grado vas a estudiar hoy?</p>
+            <span class="brand-label">APRENDE JUGANDO</span>
+            <h1>Elige tu grado <span class="wave" aria-hidden="true">👋</span></h1>
+            <p>Aprende a tu ritmo desde Inicial hasta Secundaria</p>
+        </section>
+
+        <!-- Amiguitos y compartir -->
+        <section class="friends" aria-label="Amiguitos de MVG Learning y opción para compartir">
+            <div class="character-parade" aria-hidden="true">
+                <span class="character" title="Educación Inicial">🧸</span>
+                <span class="character" title="Educación Inicial">🐸</span>
+                <span class="character main" title="Educación Inicial">🐰</span>
+                <span class="character" title="Juegos y creatividad">🧩</span>
+                <span class="character main" title="Educación Primaria">🎒</span>
+                <span class="character" title="Lectura y aprendizaje">📚</span>
+                <span class="character" title="Educación Secundaria">💻</span>
+                <span class="character" title="Ciencia y tecnología">🔬</span>
+            </div>
+            <div class="share-box">
+                <strong>¡Aprendamos juntos!</strong>
+                <button class="share-app-btn" id="shareAppBtn" type="button">📤 Compartir<span class="long"> app</span></button>
+            </div>
+        </section>
+
+        <!-- Título de la sección -->
+        <section class="section-head">
+            <h2>🏫 Elige tu nivel y grado</h2>
+            <p>Selecciona una tarjeta para abrir las materias y rutas de aprendizaje de cada grado.</p>
         </section>
 
         <!-- Pestañas -->
@@ -539,7 +768,10 @@
         <!-- Tarjetas -->
         <main class="grid" id="grid"></main>
 
-        <footer class="footer"><b>MVG Learning</b> · Aprender, jugar y crecer juntos</footer>
+        <footer class="footer">
+            <b>MVG Learning</b>
+            <p>Aprender, jugar y crecer juntos cada día.</p>
+        </footer>
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -573,9 +805,9 @@
 
         // Niveles en el orden en que aparecen las pestañas
         const levels = [
-            { key: "inicial", name: "Inicial", emoji: "🧸" },
-            { key: "primaria", name: "Primaria", emoji: "🎒" },
-            { key: "secundaria", name: "Secundaria", emoji: "🚀" },
+            { key: "inicial", name: "Inicial", title: "Educación Inicial", subtitle: "Aprendizaje temprano para niñas y niños de 3, 4 y 5 años.", emoji: "🧸" },
+            { key: "primaria", name: "Primaria", title: "Educación Primaria", subtitle: "Rutas educativas desde 1.º hasta 6.º de Primaria.", emoji: "🎒" },
+            { key: "secundaria", name: "Secundaria", title: "Educación Secundaria", subtitle: "Contenidos desde 1.º hasta 5.º de Secundaria.", emoji: "🚀" },
             { key: "todos", name: "Todos", emoji: "⭐" }
         ];
 
@@ -684,12 +916,16 @@
                 <article class="card lvl-${course.level}">
                     <a class="card-link" href="${escapeHtml(course.href)}" data-pop="${course.id}"
                        aria-label="Ingresar a ${escapeHtml(course.title)}"></a>
-                    <button class="card-share" type="button" data-share="${course.id}"
-                            aria-label="Compartir ${escapeHtml(course.title)}">📤</button>
-                    <span class="card-tag">${levelName(course.level)}</span>
+                    <span class="card-tag">${levelName(course.level).toUpperCase()}</span>
                     <span class="card-icon" aria-hidden="true">${course.emoji}</span>
-                    <h2 class="card-title">${escapeHtml(course.title)}</h2>
+                    <h3 class="card-title">${escapeHtml(course.title)}</h3>
                     <p class="card-desc">${escapeHtml(course.desc)}</p>
+                    <span class="card-stage">Ruta educativa disponible</span>
+                    <div class="card-footer">
+                        <span class="course-open" aria-hidden="true"><span class="long">Ingresar al grado</span><span class="short">Ingresar</span>&nbsp;➜</span>
+                        <button class="card-share" type="button" data-share="${course.id}"
+                                aria-label="Compartir ${escapeHtml(course.title)}" title="Compartir grado">📤</button>
+                    </div>
                 </article>`;
         }
 
@@ -701,14 +937,16 @@
                 const grades = courses.filter(c => c.level === level.key);
                 if (grades.length === 0) return;
 
-                // En "Todos" se agrega un título por nivel
-                if (currentLevel === "todos") {
-                    html += `<h2 class="level-title lvl-${level.key}"><span aria-hidden="true">${level.emoji}</span> ${level.name}</h2>`;
-                }
+                // Título de cada nivel con su descripción
+                html += `
+                    <h2 class="level-title lvl-${level.key}">
+                        <span aria-hidden="true">${level.emoji}</span>
+                        <span>${level.title}<small>${level.subtitle}</small></span>
+                    </h2>`;
                 html += grades.map(cardHtml).join("");
             });
 
-            el.grid.innerHTML = html;
+            el.grid.innerHTML = html || `<div class="empty-state">🔎 No encontramos grados disponibles.</div>`;
         }
 
         el.grid.addEventListener("click", event => {
@@ -774,8 +1012,8 @@
         el.shareAppBtn.addEventListener("click", () => {
             pop(620);
             shareContent({
-                title: "MVG Learning",
-                text: "Elige tu grado y aprende jugando con MVG Learning.",
+                title: "MVG Learning · Niveles y grados",
+                text: "Elige tu nivel y aprende jugando con MVG Learning.",
                 url: window.location.href
             });
         });
