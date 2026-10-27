@@ -1,9 +1,10 @@
 // Service worker de MVG Learning: permite instalar la app y abrirla sin internet.
 // Sube el número de versión cada vez que publiques cambios importantes.
-const CACHE = "mvg-learning-v5";
+const CACHE = "mvg-learning-v6";
 const ARCHIVOS = [
   "./",
   "./index.html",
+  "./propuesta.html",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png"

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="MVG Learning: elige tu nivel y grado y aprende jugando, desde Inicial hasta Secundaria." />
+    <meta name="application-name" content="MVG Learning" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MVG Learning" />
+    <title>MVG | Niveles y grados</title>
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#0b73ff" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        /* =====================================
+           PALETA MVG LEARNING
+        ===================================== */
+        :root {
+            --blue-1: #0867f2;
+            --blue-2: #0f9dff;
+            --blue-3: #64d8ff;
+            --green: #58cc02;
+            --green-dark: #3fa300;
+            --yellow: #ffc800;
+            --orange: #ff9600;
+            --pink: #ff6aa9;
+            --purple: #8b5cf6;
+            --ink: #17365d;
+            --muted: #6f8098;
+            --line: #dbe8f6;
+            --white: #ffffff;
+        }
+
+        /* Colores de cada nivel: claro, oscuro, sombra y suave */
+        .lvl-inicial    { --c1: #ff78b2; --c2: #e94c91; --cs: #b93472; --soft: #ffe3ef; }
+        .lvl-primaria   { --c1: #18b2ff; --c2: #087fe9; --cs: #0864b5; --soft: #e4f4ff; }
+        .lvl-secundaria { --c1: #9c87ff; --c2: #6d56e6; --cs: #4e3cb0; --soft: #eee8ff; }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: "Nunito", Arial, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.45), transparent 14%),
+                radial-gradient(circle at 88% 14%, rgba(255, 255, 255, 0.38), transparent 15%),
+                linear-gradient(180deg, #c9efff 0%, #eefaff 43%, #e2f6df 100%);
+            background-attachment: fixed;
+            padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        button {
+            font: inherit;
+            color: inherit;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 4px solid rgba(15, 157, 255, 0.45);
+            outline-offset: 3px;
+        }
+
+        /* Árboles al fondo */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            left: 0;
+            width: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-repeat: repeat-x;
+            background-position: center bottom;
+        }
+
+        body::before {
+            bottom: 0;
+            height: 230px;
+            opacity: 0.9;
+            background-size: 320px 210px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='210' viewBox='0 0 320 210'%3E%3Crect width='320' height='210' fill='none'/%3E%3Cg opacity='0.95'%3E%3Crect x='30' y='118' width='12' height='62' rx='5' fill='%23835a39'/%3E%3Ccircle cx='36' cy='102' r='28' fill='%236fd15b'/%3E%3Ccircle cx='18' cy='114' r='22' fill='%2381dc68'/%3E%3Ccircle cx='52' cy='116' r='24' fill='%2357b84f'/%3E%3Crect x='94' y='96' width='15' height='85' rx='6' fill='%23835a39'/%3E%3Ccircle cx='101' cy='83' r='32' fill='%2343b14d'/%3E%3Ccircle cx='78' cy='95' r='25' fill='%235ccf68'/%3E%3Ccircle cx='124' cy='97' r='25' fill='%2377da6a'/%3E%3Crect x='166' y='126' width='10' height='50' rx='4' fill='%23835a39'/%3E%3Cpolygon points='171,72 140,132 202,132' fill='%2351b45b'/%3E%3Cpolygon points='171,89 146,136 196,136' fill='%236ad36f'/%3E%3Crect x='236' y='106' width='13' height='74' rx='5' fill='%23835a39'/%3E%3Ccircle cx='242' cy='90' r='30' fill='%237ad364'/%3E%3Ccircle cx='221' cy='104' r='22' fill='%2362c854'/%3E%3Ccircle cx='262' cy='108' r='22' fill='%2347aa48'/%3E%3Crect y='176' width='320' height='34' fill='%2392dd73'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        body::after {
+            bottom: 135px;
+            height: 160px;
+            opacity: 0.4;
+            background-size: 260px 150px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='150' viewBox='0 0 260 150'%3E%3Crect width='260' height='150' fill='none'/%3E%3Cg opacity='0.75'%3E%3Crect x='28' y='76' width='10' height='46' rx='4' fill='%23987957'/%3E%3Ccircle cx='33' cy='66' r='24' fill='%23b9ef92'/%3E%3Ccircle cx='18' cy='76' r='18' fill='%23d1f4ad'/%3E%3Ccircle cx='48' cy='78' r='18' fill='%23a7e37f'/%3E%3Crect x='96' y='64' width='11' height='52' rx='4' fill='%23987957'/%3E%3Cpolygon points='102,30 74,86 130,86' fill='%23a8e084'/%3E%3Cpolygon points='102,44 81,88 123,88' fill='%23c4eea5'/%3E%3Crect x='174' y='72' width='10' height='48' rx='4' fill='%23987957'/%3E%3Ccircle cx='179' cy='62' r='24' fill='%23c1ef9c'/%3E%3Ccircle cx='164' cy='72' r='18' fill='%23d9f6bb'/%3E%3Ccircle cx='194' cy='74' r='18' fill='%23a9e283'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* =====================================
+           ENCABEZADO
+        ===================================== */
+        .top-band {
+            position: relative;
+            z-index: 2;
+            padding-top: env(safe-area-inset-top);
+            color: var(--white);
+            background:
+                linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 48%),
+                linear-gradient(120deg, var(--blue-1), var(--blue-2) 58%, var(--blue-3));
+            box-shadow: 0 8px 22px rgba(7, 98, 210, 0.22);
+        }
+
+        .topbar {
+            width: min(100%, 1280px);
+            min-height: 70px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo-box {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 4px solid var(--white);
+            border-radius: 17px;
+            font-family: "Baloo 2", sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(145deg, var(--pink), var(--purple));
+            box-shadow: 0 5px 0 rgba(49, 32, 148, 0.48);
+            transform: rotate(-4deg);
+        }
+
+        .brand-name {
+            display: block;
+            font-family: "Baloo 2", sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .brand-name b {
+            color: #fff3a6;
+        }
+
+        .brand-tagline {
+            display: block;
+            margin-top: 2px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+        }
+
+        .parade {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: clamp(6px, 1.4vw, 16px);
+            overflow: hidden;
+        }
+
+        .parade span {
+            font-size: 28px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 0 rgba(5, 61, 138, 0.22));
+            animation: bounce 2.8s ease-in-out infinite;
+        }
+
+        .parade span.big { font-size: 38px; }
+        .parade span:nth-child(2n) { animation-delay: -0.7s; }
+        .parade span:nth-child(3n) { animation-delay: -1.4s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .round-btn {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            font-size: 22px;
+            background: rgba(255, 255, 255, 0.22);
+            box-shadow: 0 5px 0 rgba(5, 61, 138, 0.26);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .round-btn:hover { transform: translateY(-2px); }
+        .round-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(5, 61, 138, 0.26); }
+
+        .rainbow-bar {
+            position: relative;
+            z-index: 2;
+            height: 8px;
+            background: linear-gradient(90deg, var(--green), var(--yellow), var(--orange), var(--pink), var(--purple), var(--blue-2));
+        }
+
+        /* =====================================
+           CONTENIDO
+        ===================================== */
+        .wrap {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 1280px);
+            margin: 0 auto;
+            padding: 16px 16px 48px;
+        }
+
+        /* Saludo + botón Continuar en una franja */
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            margin-bottom: 16px;
+        }
+
+        .intro h1 {
+            margin: 0;
+            font-family: "Baloo 2", sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1;
+        }
+
+        .intro p {
+            margin: 3px 0 0;
+            color: var(--muted);
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .wave {
+            display: inline-block;
+            transform-origin: 70% 70%;
+            animation: wave 2.4s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 60%, 100% { transform: rotate(0); }
+            10%, 30% { transform: rotate(16deg); }
+            20%, 40% { transform: rotate(-8deg); }
+        }
+
+        .continue-btn {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            min-height: 62px;
+            padding: 8px 22px 8px 10px;
+            border-radius: 22px;
+            color: var(--white);
+            text-decoration: none;
+            background: linear-gradient(180deg, #69d900, #4eb700);
+            box-shadow: 0 7px 0 #378f00;
+            transition: transform 0.15s ease;
+        }
+
+        .continue-btn.visible { display: inline-flex; }
+        .continue-btn:hover { transform: translateY(-2px); }
+        .continue-btn:active { transform: translateY(4px); box-shadow: 0 3px 0 #378f00; }
+
+        .continue-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .continue-btn small {
+            display: block;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            opacity: 0.9;
+        }
+
+        .continue-btn strong {
+            display: block;
+            font-family: "Baloo 2", sans-serif;
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        /* =====================================
+           MUNDOS (NIVELES)
+        ===================================== */
+        .worlds {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        /* Pantallas anchas: cada nivel es una franja (nombre a la izquierda, grados a la derecha) */
+        @media (min-width: 1101px) {
+            .world {
+                display: grid;
+                grid-template-columns: 275px 1fr;
+                grid-template-rows: auto 1fr;
+                column-gap: 18px;
+                align-items: center;
+            }
+
+            .world-head {
+                grid-column: 1;
+                grid-row: 1;
+                margin: 0;
+            }
+
+            .world .tiles {
+                grid-column: 2;
+                grid-row: 1 / span 2;
+            }
+
+            .world .tile {
+                aspect-ratio: 1 / 0.9;
+            }
+
+            .world-info {
+                grid-column: 1;
+                grid-row: 2;
+                align-self: start;
+                min-height: 0;
+                margin: 8px 0 0;
+            }
+        }
+
+        .world {
+            min-width: 0;
+            padding: 12px;
+            border: 3px solid var(--white);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 8px 0 color-mix(in srgb, var(--cs) 22%, transparent), 0 16px 30px rgba(42, 77, 119, 0.10);
+        }
+
+        .world-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .world-icon {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            border: 3px solid var(--white);
+            border-radius: 15px;
+            font-size: 23px;
+            background: linear-gradient(145deg, var(--c1), var(--c2));
+            box-shadow: 0 4px 0 var(--cs);
+        }
+
+        .world-head h2 {
+            margin: 0;
+            font-family: "Baloo 2", sans-serif;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .world-head p {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        /* Baldosas de grado */
+        /* Cada nivel en una sola fila; --n = cantidad de grados */
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(var(--n), minmax(0, 128px));
+            gap: 12px;
+        }
+
+        .tile {
+            position: relative;
+            aspect-ratio: 1 / 1.08;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            color: var(--white);
+            text-decoration: none;
+            background: linear-gradient(180deg, var(--c1), var(--c2));
+            box-shadow: 0 6px 0 var(--cs);
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+
+        .tile:hover { transform: translateY(-3px) rotate(-2deg); filter: brightness(1.05); }
+        .tile:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--cs); }
+
+        .tile-num {
+            font-family: "Baloo 2", sans-serif;
+            font-size: clamp(34px, 3.4vw, 44px);
+            font-weight: 800;
+            line-height: 0.9;
+            text-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .tile-num sup {
+            font-size: 0.45em;
+            vertical-align: top;
+            margin-left: 1px;
+        }
+
+        .tile-label {
+            margin-top: 3px;
+            font-size: 13px;
+            font-weight: 900;
+            opacity: 0.95;
+        }
+
+        .tile.is-last::after {
+            content: "⭐";
+            position: absolute;
+            top: -8px;
+            left: -6px;
+            font-size: 22px;
+            filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.15));
+        }
+
+        .tile-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: 22px;
+        }
+
+        .tile:focus-within {
+            outline: 4px solid rgba(15, 157, 255, 0.45);
+            outline-offset: 3px;
+        }
+
+        .tile-share {
+            z-index: 2;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.28);
+            cursor: pointer;
+        }
+
+        .tile-share:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Con mouse: compartir aparece al pasar sobre el grado */
+        @media (hover: hover) {
+            .tile-share {
+                opacity: 0;
+                transition: opacity 0.15s ease;
+            }
+
+            .tile:hover .tile-share,
+            .tile:focus-within .tile-share {
+                opacity: 1;
+            }
+        }
+
+        /* En pantallas táctiles no hay "pasar el mouse" */
+        @media (hover: none) {
+            .world-info { display: none; }
+        }
+
+        /* Descripción del grado señalado (computadora) */
+        .world-info {
+            min-height: 38px;
+            margin: 12px 2px 0;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .world-info b {
+            color: var(--ink);
+        }
+
+        /* =====================================
+           PIE Y AVISO
+        ===================================== */
+        .footer {
+            margin-top: 20px;
+            padding: 10px 16px;
+            text-align: center;
+            border-radius: 16px;
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 800;
+            background: linear-gradient(120deg, #0b73ff, #12a8ff);
+            box-shadow: 0 7px 0 rgba(4, 93, 180, 0.2);
+        }
+
+        .footer b {
+            font-family: "Baloo 2", sans-serif;
+            font-size: 18px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(22px + env(safe-area-inset-bottom));
+            z-index: 10;
+            max-width: calc(100% - 32px);
+            padding: 12px 20px;
+            border: 4px solid var(--white);
+            border-radius: 18px;
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(180deg, #2e506f, #17365d);
+            box-shadow: 0 9px 0 rgba(10, 33, 57, 0.27);
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, 30px);
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        /* =====================================
+           PANTALLAS MEDIANAS (iPad vertical)
+        ===================================== */
+        @media (max-width: 1100px) {
+            .parade { display: none; }
+            .topbar { grid-template-columns: 1fr auto; }
+
+            .world-info { display: none; }
+        }
+
+        /* =====================================
+           CELULAR
+        ===================================== */
+        @media (max-width: 640px) {
+            .brand-name { font-size: 22px; }
+            .brand-tagline { display: none; }
+
+            .round-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 20px;
+            }
+
+            .wrap { padding: 12px 12px 40px; }
+
+            .intro { justify-content: center; text-align: center; }
+            .intro h1 { font-size: 28px; }
+            .intro p { font-size: 14px; }
+            .continue-btn { width: 100%; justify-content: center; }
+
+            .worlds {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .tiles {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .world { padding: 10px; border-radius: 24px; }
+            .tile-num { font-size: 38px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Encabezado -->
+    <div class="top-band">
+        <header class="topbar">
+            <a class="brand" href="./" aria-label="MVG Learning, ir al inicio">
+                <span class="logo-box" aria-hidden="true">MVG</span>
+                <span>
+                    <span class="brand-name">MVG <b>Learning</b></span>
+                    <span class="brand-tagline">· APRENDE JUGANDO</span>
+                </span>
+            </a>
+
+            <div class="parade" aria-hidden="true" title="¡Aprendamos juntos!">
+                <span>🧸</span><span>🐸</span><span class="big">🐰</span><span>🧩</span>
+                <span class="big">🎒</span><span>📚</span><span>💻</span><span>🔬</span>
+            </div>
+
+            <div class="actions">
+                <button class="round-btn" id="soundBtn" type="button" aria-label="Activar o desactivar sonido">🔊</button>
+                <button class="round-btn" id="shareAppBtn" type="button" aria-label="Compartir app" title="¡Aprendamos juntos! Compartir app">📤</button>
+            </div>
+        </header>
+    </div>
+    <div class="rainbow-bar" aria-hidden="true"></div>
+
+    <div class="wrap">
+        <!-- Saludo y continuar -->
+        <section class="intro">
+            <div>
+                <h1><span id="greeting">¡Hola!</span> <span class="wave" aria-hidden="true">👋</span></h1>
+                <p>Elige tu grado y aprende a tu ritmo desde Inicial hasta Secundaria</p>
+            </div>
+
+            <a class="continue-btn" id="continueBtn" href="#">
+                <span class="continue-icon" aria-hidden="true">▶</span>
+                <span>
+                    <small>CONTINUAR EN</small>
+                    <strong id="continueName"></strong>
+                </span>
+            </a>
+        </section>
+
+        <!-- Los tres mundos -->
+        <main class="worlds" id="worlds"></main>
+
+        <footer class="footer">
+            <b>MVG Learning</b> · Aprender, jugar y crecer juntos cada día.
+        </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        /* =========================================================
+           LISTA DE GRADOS (edita aquí los enlaces "href")
+           num: lo que se ve en grande · label: texto debajo
+        ========================================================= */
+        const courses = [
+            // EDUCACIÓN INICIAL
+            { id: 1, num: "3", label: "años", title: "3 años", desc: "Primeros números, palabras, colores, formas y actividades para aprender jugando.", href: "3years/index3Year.html", level: "inicial" },
+            { id: 2, num: "4", label: "años", title: "4 años", desc: "Desarrolla lenguaje, pensamiento lógico, creatividad y autonomía paso a paso.", href: "4years/index4Year.html", level: "inicial" },
+            { id: 3, num: "5", label: "años", title: "5 años", desc: "Prepárate para Primaria con lectura inicial, números, retos y juegos educativos.", href: "5years/index5Year.html", level: "inicial" },
+
+            // EDUCACIÓN PRIMARIA
+            { id: 4, num: "1", label: "grado", title: "1.º de Primaria", desc: "Lectura, escritura, números y razonamiento mediante experiencias sencillas y divertidas.", href: "index1Primary.html", level: "primaria" },
+            { id: 5, num: "2", label: "grado", title: "2.º de Primaria", desc: "Fortalece comprensión lectora, operaciones básicas y resolución de problemas.", href: "index2Primary.html", level: "primaria" },
+            { id: 6, num: "3", label: "grado", title: "3.º de Primaria", desc: "Avanza en matemáticas, comunicación, ciencias y pensamiento crítico.", href: "index3Primary.html", level: "primaria" },
+            { id: 7, num: "4", label: "grado", title: "4.º de Primaria", desc: "Practica estrategias, comprensión, cálculo y proyectos interdisciplinarios.", href: "index4Primary.html", level: "primaria" },
+            { id: 8, num: "5", label: "grado", title: "5.º de Primaria", desc: "Resuelve retos de mayor nivel y consolida conocimientos esenciales.", href: "index5Primary.html", level: "primaria" },
+            { id: 9, num: "6", label: "grado", title: "6.º de Primaria", desc: "Prepárate para Secundaria con razonamiento, análisis y aprendizaje autónomo.", href: "index6Primary.html", level: "primaria" },
+
+            // EDUCACIÓN SECUNDARIA
+            { id: 10, num: "1", label: "año", title: "1.º de Secundaria", desc: "Inicia una nueva etapa con bases sólidas en ciencias, letras y tecnología.", href: "index1Secondary.html", level: "secundaria" },
+            { id: 11, num: "2", label: "año", title: "2.º de Secundaria", desc: "Profundiza conceptos y aplica estrategias para resolver nuevos desafíos.", href: "index2Secondary.html", level: "secundaria" },
+            { id: 12, num: "3", label: "año", title: "3.º de Secundaria", desc: "Desarrolla análisis, investigación, pensamiento matemático y comunicación.", href: "index3Secondary.html", level: "secundaria" },
+            { id: 13, num: "4", label: "año", title: "4.º de Secundaria", desc: "Consolida competencias académicas y prepárate para retos preuniversitarios.", href: "index4Secondary.html", level: "secundaria" },
+            { id: 14, num: "5", label: "año", title: "5.º de Secundaria", desc: "Fortalece tu preparación final para estudios superiores y nuevos proyectos.", href: "index5Secondary.html", level: "secundaria" }
+        ];
+
+        const levels = [
+            { key: "inicial", title: "Educación Inicial", subtitle: "Para niñas y niños de 3, 4 y 5 años", emoji: "🧸", ordinal: false },
+            { key: "primaria", title: "Educación Primaria", subtitle: "De 1.º a 6.º grado", emoji: "🎒", ordinal: true },
+            { key: "secundaria", title: "Educación Secundaria", subtitle: "De 1.º a 5.º año", emoji: "🚀", ordinal: true }
+        ];
+
+        const el = {
+            worlds: document.getElementById("worlds"),
+            toast: document.getElementById("toast"),
+            soundBtn: document.getElementById("soundBtn"),
+            shareAppBtn: document.getElementById("shareAppBtn"),
+            greeting: document.getElementById("greeting"),
+            continueBtn: document.getElementById("continueBtn"),
+            continueName: document.getElementById("continueName")
+        };
+
+        /* =========================================================
+           PREFERENCIAS (sonido y último grado abierto)
+        ========================================================= */
+        function readPref(key, fallback) {
+            try { return localStorage.getItem(key) ?? fallback; } catch (e) { return fallback; }
+        }
+
+        function savePref(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) { /* sin almacenamiento */ }
+        }
+
+        let soundOn = readPref("mvg-sonido", "on") !== "off";
+        const lastId = Number(readPref("mvg-ultimo-grado", "0"));
+
+        /* =========================================================
+           SALUDO SEGÚN LA HORA
+        ========================================================= */
+        const hour = new Date().getHours();
+        el.greeting.textContent =
+            hour < 12 ? "¡Buenos días!" :
+            hour < 19 ? "¡Buenas tardes!" :
+            "¡Buenas noches!";
+
+        /* =========================================================
+           SONIDO "POP"
+        ========================================================= */
+        let audioCtx;
+
+        function pop(freq = 520) {
+            if (!soundOn) return;
+            try {
+                audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const t = audioCtx.currentTime;
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(freq, t);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.8, t + 0.12);
+                gain.gain.setValueAtTime(0.25, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+                osc.connect(gain).connect(audioCtx.destination);
+                osc.start();
+                osc.stop(t + 0.2);
+            } catch (e) { /* sin audio */ }
+        }
+
+        function updateSoundBtn() {
+            el.soundBtn.textContent = soundOn ? "🔊" : "🔇";
+            el.soundBtn.setAttribute("aria-pressed", String(soundOn));
+        }
+
+        /* =========================================================
+           AVISO
+        ========================================================= */
+        let toastTimer;
+
+        function showToast(message) {
+            el.toast.textContent = message;
+            el.toast.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.toast.classList.remove("show"), 2600);
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        /* =========================================================
+           DIBUJAR LOS MUNDOS
+        ========================================================= */
+        function tileHtml(course, level) {
+            const sup = level.ordinal ? "<sup>º</sup>" : "";
+            return `
+                <div class="tile${course.id === lastId ? " is-last" : ""}" data-id="${course.id}" title="${escapeHtml(course.desc)}">
+                    <a class="tile-link" href="${escapeHtml(course.href)}" data-id="${course.id}"
+                       aria-label="Ingresar a ${escapeHtml(course.title)}"></a>
+                    <span class="tile-num" aria-hidden="true">${course.num}${sup}</span>
+                    <span class="tile-label" aria-hidden="true">${course.label}</span>
+                    <button class="tile-share" type="button" data-share="${course.id}"
+                            aria-label="Compartir ${escapeHtml(course.title)}" title="Compartir grado">📤</button>
+                </div>`;
+        }
+
+        function render() {
+            el.worlds.innerHTML = levels.map(level => {
+                const grades = courses.filter(c => c.level === level.key);
+                if (grades.length === 0) return "";
+                return `
+                    <section class="world lvl-${level.key}" aria-labelledby="t-${level.key}">
+                        <div class="world-head">
+                            <span class="world-icon" aria-hidden="true">${level.emoji}</span>
+                            <div>
+                                <h2 id="t-${level.key}">${level.title}</h2>
+                                <p>${level.subtitle}</p>
+                            </div>
+                        </div>
+                        <div class="tiles" style="--n: ${grades.length}">${grades.map(c => tileHtml(c, level)).join("")}</div>
+                        <p class="world-info" data-info="${level.key}"></p>
+                    </section>`;
+            }).join("");
+        }
+
+        // Muestra la descripción del grado señalado (en computadora)
+        function showInfo(tile) {
+            const course = courses.find(c => c.id === Number(tile.dataset.id));
+            if (!course) return;
+            const info = el.worlds.querySelector(`[data-info="${course.level}"]`);
+            if (info) info.innerHTML = `<b>${escapeHtml(course.title)}:</b> ${escapeHtml(course.desc)}`;
+        }
+
+        el.worlds.addEventListener("mouseover", e => {
+            const tile = e.target.closest(".tile");
+            if (tile) showInfo(tile);
+        });
+
+        el.worlds.addEventListener("focusin", e => {
+            const tile = e.target.closest(".tile");
+            if (tile) showInfo(tile);
+        });
+
+        el.worlds.addEventListener("click", e => {
+            const shareBtn = e.target.closest("[data-share]");
+            if (shareBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                pop(620);
+                shareCourse(Number(shareBtn.dataset.share));
+                return;
+            }
+
+            const tile = e.target.closest(".tile-link");
+            if (tile) {
+                pop(400 + Number(tile.dataset.id) * 25);
+                savePref("mvg-ultimo-grado", tile.dataset.id);
+            }
+        });
+
+        /* =========================================================
+           BOTÓN CONTINUAR
+        ========================================================= */
+        function setupContinue() {
+            const course = courses.find(c => c.id === lastId);
+            if (!course) return;
+            el.continueBtn.href = course.href;
+            el.continueName.textContent = course.title;
+            el.continueBtn.classList.add("visible");
+            el.continueBtn.addEventListener("click", () => pop(700));
+        }
+
+        /* =========================================================
+           COMPARTIR
+        ========================================================= */
+        async function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return;
+            }
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            const ok = document.execCommand("copy");
+            area.remove();
+            if (!ok) throw new Error("No se pudo copiar");
+        }
+
+        async function shareContent({ title, text, url }) {
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                    showToast("¡Compartido! 🎉");
+                    return;
+                } catch (error) {
+                    if (error.name === "AbortError") return;
+                }
+            }
+            try {
+                await copyText(url);
+                showToast("¡Enlace copiado! 🔗");
+            } catch (error) {
+                showToast("No se pudo copiar el enlace ⚠️");
+            }
+        }
+
+        function shareCourse(id) {
+            const course = courses.find(c => c.id === id);
+            if (!course) return;
+            shareContent({
+                title: `MVG Learning · ${course.title}`,
+                text: `${course.desc} Ingresa a ${course.title} en MVG Learning.`,
+                url: new URL(course.href, window.location.href).href
+            });
+        }
+
+        el.shareAppBtn.addEventListener("click", () => {
+            pop(620);
+            shareContent({
+                title: "MVG Learning · Niveles y grados",
+                text: "Elige tu nivel y aprende jugando con MVG Learning.",
+                url: window.location.href
+            });
+        });
+
+        el.soundBtn.addEventListener("click", () => {
+            soundOn = !soundOn;
+            savePref("mvg-sonido", soundOn ? "on" : "off");
+            updateSoundBtn();
+            pop();
+        });
+
+        /* =========================================================
+           INICIO
+        ========================================================= */
+        updateSoundBtn();
+        render();
+        setupContinue();
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js", { scope: "./" })
+                    .catch(error => console.error("No se pudo registrar el Service Worker:", error));
+            });
+        }
+    </script>
+</body>
+
+</html>
