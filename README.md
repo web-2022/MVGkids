@@ -1,24 +1,29 @@
-# MVG kids
+# MVG Learning (MVGkids)
 
-Juegos educativos para niños, hechos como web/PWA: se abren en el navegador y se pueden instalar en iPad o celular.
+Plataforma educativa para aprender jugando, de Inicial a Secundaria. Es una web/PWA: se abre en el navegador y se puede instalar en iPad o celular.
 
 ## Estructura
 
 ```
-index.html            Portada con la lista de juegos
-manifest.webmanifest  Datos para instalar la app
-sw.js                 Funcionamiento sin internet
-icon.svg              Ícono de la app
-juegos/<id>/          Cada juego en su propia carpeta (por crear)
+index.html            Menú principal: niveles y grados
+manifest.json         Datos para instalar la app
+service-worker.js     Funcionamiento sin internet
+icons/                Íconos de la app (192 y 512 px)
 ```
 
-## Agregar un juego
+## Páginas de cada grado (por crear)
 
-1. Crea la carpeta `juegos/<id>/` con su `index.html`.
-2. En `index.html` (lista `JUEGOS`), cambia `listo: false` a `listo: true` para ese juego.
-3. Sube la versión en `sw.js` (`mvgkids-v2`, `v3`…).
+El menú enlaza a estas páginas; se definen en la lista `courses` de `index.html`:
+
+| Nivel      | Páginas |
+|------------|---------|
+| Inicial    | `3years/index3Year.html`, `4years/index4Year.html`, `5years/index5Year.html` |
+| Primaria   | `index1Primary.html` … `index6Primary.html` |
+| Secundaria | `index1Secondary.html` … `index5Secondary.html` |
 
 ## Publicar en GitHub Pages
 
-Settings → Pages → Source: rama `main`, carpeta `/ (root)`. La app queda en
+Settings → Pages → Source: rama `main`, carpeta `/ (root)`. Quedará en
 `https://web-2022.github.io/MVGkids/`.
+
+Al publicar cambios grandes, sube la versión de `CACHE` en `service-worker.js`.
