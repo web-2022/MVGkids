@@ -839,6 +839,163 @@
             box-shadow: 0 9px 0 rgba(10, 33, 57, 0.27);
         }
 
+
+        /* =====================================
+           USO DEL ESPACIO
+        ===================================== */
+        .topbar {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            min-height: 70px;
+        }
+
+        .brand-text {
+            display: grid;
+            gap: 2px;
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+            opacity: 0.92;
+        }
+
+        /* Amiguitos dentro del encabezado */
+        .topbar .character-parade {
+            justify-content: center;
+            align-self: end;
+            gap: clamp(6px, 1.4vw, 16px);
+            overflow: hidden;
+        }
+
+        .topbar .character {
+            font-size: 30px;
+            filter: drop-shadow(0 4px 0 rgba(5, 61, 138, 0.22));
+        }
+
+        .topbar .character.main {
+            font-size: 40px;
+        }
+
+        .wrap {
+            padding-top: 14px;
+            padding-bottom: 56px;
+        }
+
+        /* Título a la izquierda y pestañas a la derecha */
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            margin-bottom: 14px;
+        }
+
+        .intro h1 {
+            margin: 0;
+            font-family: "Baloo 2", sans-serif;
+            font-size: clamp(30px, 4vw, 44px);
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .intro p {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .intro .tabs {
+            margin: 0;
+            flex-wrap: nowrap;
+        }
+
+        .tab {
+            min-height: 48px;
+            padding: 6px 16px;
+            font-size: 18px;
+        }
+
+        /* Títulos de nivel en una línea */
+        .level-title {
+            margin: 6px 0 -4px;
+            padding: 4px 14px 4px 4px;
+            font-size: clamp(20px, 2.4vw, 24px);
+            border-radius: 16px;
+        }
+
+        .level-title:first-child {
+            margin-top: 0;
+        }
+
+        .level-title > span:last-child {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0 10px;
+        }
+
+        .level-title small {
+            margin: 0;
+        }
+
+        .lvl-icon {
+            width: 38px;
+            height: 38px;
+            border-width: 3px;
+            border-radius: 12px;
+            font-size: 18px;
+        }
+
+        .grid {
+            gap: 14px;
+        }
+
+        .card {
+            padding: 14px 10px 12px;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+
+        .card-footer {
+            margin-top: 10px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        .footer b {
+            font-size: 18px;
+        }
+
+        /* Pantallas medianas: amiguitos fuera y pestañas debajo del título */
+        @media (max-width: 1000px) {
+            .topbar .character-parade {
+                display: none;
+            }
+
+            .topbar {
+                grid-template-columns: 1fr auto;
+            }
+
+            .intro {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
         /* =====================================
            CELULAR
         ===================================== */
@@ -935,36 +1092,79 @@
                 transition: none !important;
             }
         }
+        @media (max-width: 480px) {
+            .brand-tagline {
+                display: none;
+            }
+
+            .intro {
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            .intro h1 {
+                font-size: 28px;
+            }
+
+            .intro p {
+                font-size: 14px;
+            }
+
+            /* Pestañas en una sola fila deslizable */
+            .intro .tabs {
+                width: calc(100% + 24px);
+                margin: 0 -12px;
+                padding: 2px 12px 8px;
+                justify-content: flex-start;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .intro .tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tab {
+                flex: 0 0 auto;
+                min-height: 44px;
+                padding: 5px 13px;
+                font-size: 16px;
+            }
+
+            .level-title {
+                font-size: 19px;
+            }
+
+            .card {
+                padding: 12px 8px 10px;
+            }
+
+            .card-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+            }
+
+            .footer {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Encabezado -->
+    <!-- Encabezado: marca, amiguitos y botones -->
     <div class="top-band">
         <header class="topbar">
             <a class="brand" href="./" aria-label="MVG Learning, ir al inicio">
                 <span class="logo-box" aria-hidden="true">MVG</span>
-                <span class="brand-name">MVG <b>Learning</b></span>
+                <span class="brand-text">
+                    <span class="brand-name">MVG <b>Learning</b></span>
+                    <span class="brand-tagline">· APRENDE JUGANDO</span>
+                </span>
             </a>
 
-            <div class="top-actions">
-                <button class="round-btn" id="soundBtn" type="button" aria-label="Activar o desactivar sonido">🔊</button>
-            </div>
-        </header>
-    </div>
-    <div class="rainbow-bar" aria-hidden="true"></div>
-
-    <div class="wrap">
-        <!-- Saludo -->
-        <section class="hero">
-            <span class="brand-label">APRENDE JUGANDO</span>
-            <h1>Elige tu grado <span class="wave" aria-hidden="true">👋</span></h1>
-            <p>Aprende a tu ritmo desde Inicial hasta Secundaria</p>
-        </section>
-
-        <!-- Amiguitos y compartir -->
-        <section class="friends" aria-label="Amiguitos de MVG Learning y opción para compartir">
-            <div class="character-parade" aria-hidden="true">
+            <div class="character-parade" aria-hidden="true" title="¡Aprendamos juntos!">
                 <span class="character" title="Educación Inicial">🧸</span>
                 <span class="character" title="Educación Inicial">🐸</span>
                 <span class="character main" title="Educación Inicial">🐰</span>
@@ -974,27 +1174,30 @@
                 <span class="character" title="Educación Secundaria">💻</span>
                 <span class="character" title="Ciencia y tecnología">🔬</span>
             </div>
-            <div class="share-box">
-                <strong>¡Aprendamos juntos!</strong>
-                <button class="share-app-btn" id="shareAppBtn" type="button">📤 Compartir<span class="long"> app</span></button>
+
+            <div class="top-actions">
+                <button class="round-btn" id="soundBtn" type="button" aria-label="Activar o desactivar sonido">🔊</button>
+                <button class="round-btn" id="shareAppBtn" type="button" aria-label="Compartir app" title="¡Aprendamos juntos! Compartir app">📤</button>
             </div>
-        </section>
+        </header>
+    </div>
+    <div class="rainbow-bar" aria-hidden="true"></div>
 
-        <!-- Título de la sección -->
-        <section class="section-head">
-            <h2>🏫 Elige tu nivel y grado</h2>
-            <p>Selecciona una tarjeta para abrir las materias y rutas de aprendizaje de cada grado.</p>
+    <div class="wrap">
+        <!-- Título y pestañas en una sola franja -->
+        <section class="intro">
+            <div class="intro-copy">
+                <h1>Elige tu grado <span class="wave" aria-hidden="true">👋</span></h1>
+                <p>Aprende a tu ritmo desde Inicial hasta Secundaria</p>
+            </div>
+            <nav class="tabs" id="tabs" aria-label="Elegir nivel"></nav>
         </section>
-
-        <!-- Pestañas -->
-        <nav class="tabs" id="tabs" aria-label="Elegir nivel"></nav>
 
         <!-- Tarjetas -->
         <main class="grid" id="grid"></main>
 
         <footer class="footer">
-            <b>MVG Learning</b>
-            <p>Aprender, jugar y crecer juntos cada día.</p>
+            <b>MVG Learning</b> · Aprender, jugar y crecer juntos cada día.
         </footer>
     </div>
 
@@ -1029,10 +1232,10 @@
 
         // Niveles en el orden en que aparecen las pestañas
         const levels = [
+            { key: "todos", name: "Todos", emoji: "⭐" },
             { key: "inicial", name: "Inicial", title: "Educación Inicial", subtitle: "Aprendizaje temprano para niñas y niños de 3, 4 y 5 años.", emoji: "🧸" },
             { key: "primaria", name: "Primaria", title: "Educación Primaria", subtitle: "Rutas educativas desde 1.º hasta 6.º de Primaria.", emoji: "🎒" },
-            { key: "secundaria", name: "Secundaria", title: "Educación Secundaria", subtitle: "Contenidos desde 1.º hasta 5.º de Secundaria.", emoji: "🚀" },
-            { key: "todos", name: "Todos", emoji: "⭐" }
+            { key: "secundaria", name: "Secundaria", title: "Educación Secundaria", subtitle: "Contenidos desde 1.º hasta 5.º de Secundaria.", emoji: "🚀" }
         ];
 
         const el = {
@@ -1140,11 +1343,9 @@
                 <article class="card lvl-${course.level}">
                     <a class="card-link" href="${escapeHtml(course.href)}" data-pop="${course.id}"
                        aria-label="Ingresar a ${escapeHtml(course.title)}"></a>
-                    <span class="card-tag">${levelName(course.level).toUpperCase()}</span>
                     <span class="card-icon" aria-hidden="true">${course.emoji}</span>
                     <h3 class="card-title">${escapeHtml(course.title)}</h3>
                     <p class="card-desc">${escapeHtml(course.desc)}</p>
-                    <span class="card-stage">Ruta educativa disponible</span>
                     <div class="card-footer">
                         <span class="course-open" aria-hidden="true"><span class="long">Ingresar al grado</span><span class="short">Ingresar</span>&nbsp;➜</span>
                         <button class="card-share" type="button" data-share="${course.id}"
